@@ -1,5 +1,8 @@
 package com.benzneststudios.flutter_thailand_provinces;
 
+import androidx.annotation.NonNull;
+
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -7,11 +10,13 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /** FlutterThailandProvincesPlugin */
-public class FlutterThailandProvincesPlugin implements MethodCallHandler {
-  /** Plugin registration. */
-  public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "flutter_thailand_provinces");
-    channel.setMethodCallHandler(new FlutterThailandProvincesPlugin());
+public class FlutterThailandProvincesPlugin implements FlutterPlugin, MethodCallHandler {
+  private MethodChannel channel;
+
+  @Override
+  public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "flutter_thailand_provinces");
+    channel.setMethodCallHandler(this);
   }
 
   @Override
@@ -21,5 +26,10 @@ public class FlutterThailandProvincesPlugin implements MethodCallHandler {
     } else {
       result.notImplemented();
     }
+  }
+
+  @Override
+  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+    channel.setMethodCallHandler(null);
   }
 }
