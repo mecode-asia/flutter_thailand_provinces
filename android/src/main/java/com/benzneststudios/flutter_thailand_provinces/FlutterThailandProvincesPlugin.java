@@ -7,14 +7,13 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /** FlutterThailandProvincesPlugin */
 public class FlutterThailandProvincesPlugin implements FlutterPlugin, MethodCallHandler {
   private MethodChannel channel;
 
   @Override
-  public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+  public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
     channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "flutter_thailand_provinces");
     channel.setMethodCallHandler(this);
   }
@@ -29,7 +28,7 @@ public class FlutterThailandProvincesPlugin implements FlutterPlugin, MethodCall
   }
 
   @Override
-  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+  public void onDetachedFromEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
     channel.setMethodCallHandler(null);
   }
 }
